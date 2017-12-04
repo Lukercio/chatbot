@@ -1,36 +1,59 @@
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, request
+from flask_pymongo import PyMongo
+from flask_pymongo import MongoClient
+from datetime import datetime
+import json
+from bson import BSON
+from bson import json_util
 
-app = Flask(__name__)
+app = Flask('bot')
 
-data = [
-    {
-        'id': 1,
-        'title': u'Buy groceries',
-        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol', 
-        'done': False
-    },
-    {
-        'id': 2,
-        'title': u'Learn Python',
-        'description': u'Need to find a good Python tutorial on the web', 
-        'done': False
-    }
-]
+
+DB_NAME = "lukercio"
+DB_HOST = "ds155325.mlab.com"
+DB_PORT = 55325
+DB_USER = "bot" 
+DB_PASS = "luk100994"
+
+connection = MongoClient(DB_HOST, DB_PORT)
+db = connection[DB_NAME]
+db.authenticate(DB_USER, DB_PASS)
+
+
+def bot():
+	print 'olar'
+	
 
 @app.route('/luizalabs/get-test', methods=['GET'])
 def get_test():
-    return jsonify({'test': data})
+	statusCode = 200
+	
+	retorno = db.log.find({})
+	print retorno
+	return 'teste', 200
+	#return json.dumps(retorno, default=json_util.default), statusCode
 
 @app.route('/luizalabs/mensagens', methods=['POST'])
 def recebe_msg():
+	print('inicio metodo post')
+	statusCode = 200
+	retorno = 'Sucesso'
+
 	if not request.json or not 'title' in request.json:
 		abort(400)
 
-#	request.json.append(request.json)
+	try:
+		r = db.log.insert(request.json)
+	except:
+		retorno = 'Erro'
+		statusCode = 500
 
-	return jsonify({'OK': request.json}), 201
+	return retorno, statusCode
+	#json.dumps(r, default=json_util.default), statusCode
+	#return json.dumps(restaurantes, sort_keys=True, indent=4, default=json_util.default), 200
+
 
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 5000))
-	app.run(host='0.0.0.0', port=port)
+	app.run(debug=True, host='0.0.0.0', port=port)
