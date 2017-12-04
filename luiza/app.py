@@ -29,7 +29,7 @@ token = 'a1s2d3f4'
 def get_test():
 	statusCode = 200
 
-	if request.args.get('hub.verify_token') == 'a1s2d3f4':
+	if request.args.get('hub.verify_token'):
 		return request.args.get('hub.challenge'), 200
 
 	return "Wrong Verify Token"
