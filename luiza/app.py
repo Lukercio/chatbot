@@ -28,15 +28,15 @@ token = 'a1s2d3f4'
 @app.route('/luizalabs/get-test', methods=['GET'])
 def get_test():
 	statusCode = 200
-
-	if request.args.get('hub.verify_token') == token:
-		return request.args.get('hub.challenge')
+	print request.args
+	if request.args.get('hub.verify_token') == 'a1s2d3f4':
+		return request.args.get('hub.challenge'), 200
 
 	return "Wrong Verify Token"
 
 	#retorno = db.log.find({})
 	#print retorno
-	return 'Sucesso', statusCode
+	#return 'Sucesso', statusCode
 	#return json.dumps(retorno, default=json_util.default), statusCode
 
 @app.route('/luizalabs/mensagens', methods=['POST'])
