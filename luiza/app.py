@@ -21,8 +21,8 @@ db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
 
-def bot():
-	print 'olar'
+#def bot():
+	#print 'olar'
 	
 
 @app.route('/luizalabs/get-test', methods=['GET'])
