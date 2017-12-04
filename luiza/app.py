@@ -29,9 +29,9 @@ def bot():
 def get_test():
 	statusCode = 200
 	
-	retorno = db.log.find({})
-	print retorno
-	return 'teste', 200
+	#retorno = db.log.find({})
+	#print retorno
+	return 'Sucesso', statusCode
 	#return json.dumps(retorno, default=json_util.default), statusCode
 
 @app.route('/luizalabs/mensagens', methods=['POST'])
