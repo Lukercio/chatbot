@@ -20,7 +20,7 @@ connection = MongoClient(DB_HOST, DB_PORT)
 db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
-
+token = 'a1s2d3f4'
 #def bot():
 	#print 'olar'
 	
@@ -28,7 +28,12 @@ db.authenticate(DB_USER, DB_PASS)
 @app.route('/luizalabs/get-test', methods=['GET'])
 def get_test():
 	statusCode = 200
-	
+
+	if request.args.get('hub.verify_token') == token:
+		return request.args.get('hub.challenge')
+
+	return "Wrong Verify Token"
+
 	#retorno = db.log.find({})
 	#print retorno
 	return 'Sucesso', statusCode
