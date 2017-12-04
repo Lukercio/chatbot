@@ -1,9 +1,11 @@
 import os
+import requests
+import traceback
+import json
 from flask import Flask, request
 from flask_pymongo import PyMongo
 from flask_pymongo import MongoClient
 from datetime import datetime
-import json
 from bson import BSON
 from bson import json_util
 
@@ -21,6 +23,7 @@ db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
 token = 'a1s2d3f4'
+tokenResposta = 'EAACJur8NjScBAAOJ4618XnXLHvenZAX5QM7ZAvlZCRljMzZCNjQDYQ58cbri6yr19d7abCncc8AyEbwsw1hISw0mZBZADXZBlbb61SbhNiZCZA4ZCSyQonvli6GvXkC6PfcjnVrt6oTmLkCVtHV19hetos6ZAxwcn5ZCA7ZAoiK5BFkzh4wZDZD'
 #def bot():
 	#print 'olar'
 	
@@ -45,6 +48,13 @@ def recebe_msg():
 
 		try:
 			r = db.log.insert(request.json)
+
+			metadata = json.loads(request.data.decode())
+			texto = metadata['entry'][0]['messaging'][0]['message']['text']
+			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
+			resposta = {'recipient': {'id': remetente}, 'message': {'text': "Como posso ajudar?"}}
+			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
+
 		except:
 			retorno = 'Erro'
 			statusCode = 500
