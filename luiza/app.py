@@ -21,9 +21,17 @@ db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
 token = 'a1s2d3f4'
-
+#def bot():
+	#print 'olar'
 	
-@app.route('/luizalabs/mensagens', methods=['GET','POST'])
+
+@app.route('/luizalabs/get-test', methods=['GET'])
+def get_test():
+	statusCode = 200
+
+	return "Servico teste", statusCode
+
+@app.route('/luizalabs/mensagens', methods=['GET', 'POST'])
 def recebe_msg():
 	if request.method == 'GET':
 		if request.args.get('hub.verify_token') == token:
@@ -32,7 +40,6 @@ def recebe_msg():
 		return "Token incorreto"
 
 	elif request.method == 'POST':
-		print('inicio metodo post')
 		statusCode = 200
 		retorno = 'Sucesso'
 
@@ -50,6 +57,6 @@ def recebe_msg():
 		#return json.dumps(restaurantes, sort_keys=True, indent=4, default=json_util.default), 200
 
 
-	if __name__ == '__main__':
-		port = int(os.environ.get("PORT", 5000))
-		app.run(debug=True, host='0.0.0.0', port=port)
+if __name__ == '__main__':
+	port = int(os.environ.get("PORT", 5000))
+	app.run(debug=True, host='0.0.0.0', port=port)
