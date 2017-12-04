@@ -43,9 +43,6 @@ def recebe_msg():
 		statusCode = 200
 		retorno = 'Sucesso'
 
-		if not request.json or not 'title' in request.json:
-			abort(400)
-
 		try:
 			r = db.log.insert(request.json)
 		except:
