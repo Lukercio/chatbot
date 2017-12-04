@@ -28,7 +28,7 @@ token = 'a1s2d3f4'
 @app.route('/luizalabs/get-test', methods=['GET'])
 def get_test():
 	statusCode = 200
-	print request.args
+
 	if request.args.get('hub.verify_token') == 'a1s2d3f4':
 		return request.args.get('hub.challenge'), 200
 
