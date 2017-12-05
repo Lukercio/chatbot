@@ -116,6 +116,7 @@ def recebe_msg():
 			metadata = json.loads(request.data.decode())
 			texto = metadata['entry'][0]['messaging'][0]['message']['text']
 			produto = None
+			print 'aqui0.1'
 
 			if 'image' in request.json:
 				print 'aqui1'
