@@ -122,21 +122,26 @@ def recebe_msg():
 			print 'aqui0'
 			metadata = json.loads(request.data.decode())
 			print metadata
-			print 'aqui0000000000'
 			print request.json
 
 
 
 			if metadata["object"] == "page":
+				print 'aqui0000000000'
+
 				for entry in metadata["entry"]:
+					print 'aqui0000000000'
+
 					for messaging_event in entry["messaging"]:
+						print 'aqui0000000000'
+
 						if messaging_event.get("message"):  # someone sent us a message
 							texto = messaging_event["message"]["text"]  # the message's text
 							imagemUrl = messaging_event["message"]["attachments"][0]["payload"]["url"]  # the message's text
 
 							print texto
 							print imagemUrl
-							
+
 			
 			produto = identificaProduto(imagemUrl)
 			print produto
