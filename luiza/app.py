@@ -42,6 +42,9 @@ params = urllib.urlencode({
 	'language': 'en',
 })
 
+GREETING_KEYWORDS = ("oi", "ola", "eae", "oi, tudo bem?")
+GREETING_RESPONSES = ["Ola, sou o vendedor virtual, me informe o nome de um produto ou uma imagem dele", "oi", "ola", "O que deseja comprar?"]
+OTHER_RESPONSES = ("Desculpe, nao entendi.", "Por enquanto apenas ajudo na compra de produtos", "Desculpe, ainda nao realizo esse tipo de tarefa", "Desculpe, apenas consigo te auxiliar em uma compra")
 
 def identificaProduto(imagemUrl):
 	headers = {
@@ -56,8 +59,6 @@ def identificaProduto(imagemUrl):
 
 	retorno = 'Desconhecido'
 	body = "{'url': '" + imagemUrl + "'}"
-
-	#'https://scontent-iad3-1.xx.fbcdn.net/v/t35.0-12/24726147_1641730655848963_260168319_o.jpg?_nc_ad=z-m&_nc_cid=0&oh=c85115f4a6bf04b5010027c07c3900a3&oe=5A26ABD8'}"
 
 	try: 
 		# Verifica significado imagem
@@ -80,13 +81,14 @@ def linkBuscaML(produto):
 	return linkBuscaML + produto + '.json'
 
 def bot(texto, produto):
-	retorno = 'Desculpe, apenas consigo te auxiliar em uma compra.'
 
 	if produto == None:
-		produto = 'descobrir'####
+		retorno = 'Ola, sou o vendedor virtual, me informe o nome de um produto ou uma imagem dele'####
 	
 	else:
-		retorno = linkBuscaML(produto)
+		link = linkBuscaML(produto)
+		retorno = link
+
 
 	return retorno
 
@@ -116,18 +118,19 @@ def recebe_msg():
 			metadata = json.loads(request.data.decode())
 			print metadata
 
-			if 'text' in metadata:
+			if 'text' in request.json:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
-			if 'image' in metadata:
+			if 'image' in request.json:
 				print 'aqui1'
 				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
 				print imagemUrl
 				#produto = identificaProduto(imagemUrl)
 			else:
 				print 'aqui3'
-			print 'aqui2'
-			return identificaProduto(imagemUrl)
+			
+			produto = identificaProduto(imagemUrl)
+			print produto
 
 			mensagem = bot(texto, produto)
 
