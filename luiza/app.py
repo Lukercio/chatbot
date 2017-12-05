@@ -83,7 +83,7 @@ def linkBuscaML(produto):
 
 def bot(texto, produto):
 
-	if produto == None:
+	if produto == "":
 		retorno = random.choice(NOPRODUCT_RESPONSES)
 
 	else:
@@ -137,6 +137,7 @@ def recebe_msg():
 
 			mensagem = bot(texto, "")
 
+			print "pos msg"
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
 			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
