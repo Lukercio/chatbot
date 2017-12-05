@@ -94,7 +94,7 @@ def bot(texto, produto):
 		link = linkBuscaML(produto)
 		retorno = retorno + link
 
-
+	print "bot retorno: " + retorno 
 	return retorno
 
 
@@ -119,7 +119,6 @@ def recebe_msg():
 
 		try:
 			r = db.log.insert(request.json)
-			print 'aqui0'
 			metadata = json.loads(request.data.decode())
 			print metadata
 			print request.json
@@ -127,28 +126,11 @@ def recebe_msg():
 
 
 			if metadata["object"] == "page":
-				print 'aqui0000000000'
-
 				for entry in metadata["entry"]:
-					print 'aqui0000000000'
-
 					for messaging_event in entry["messaging"]:
-						print 'aqui0000000000'
-
-						if messaging_event.get("message"):  # someone sent us a message
-							message = messaging_event.get("message")
-							print 'aqui0000000000'
-
-							if message.get("text"):
-								print 'aqui0000000000'
-								texto = messaging_event["message"]["text"]  # the message's text
-								
-							else:
-								imagemUrl = messaging_event["message"]["attachments"][0]["payload"]["url"]  # the message's text
-
-							print texto
-							print imagemUrl
-
+						if messaging_event.get("message"):  
+							print "Mensagem recebida"
+						
 			
 			produto = identificaProduto(imagemUrl)
 			print produto
