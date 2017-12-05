@@ -42,9 +42,10 @@ params = urllib.urlencode({
 	'language': 'en',
 })
 
-GREETING_KEYWORDS = ("oi", "ola", "eae", "oi, tudo bem?")
+GREETING_KEYWORDS = ("oi", "ola", "eae", "tudo bem", "?")
 GREETING_RESPONSES = ["Ola, sou o vendedor virtual, me informe o nome de um produto ou uma imagem dele", "oi", "ola", "O que deseja comprar?"]
 OTHER_RESPONSES = ("Desculpe, nao entendi.", "Por enquanto apenas ajudo na compra de produtos", "Desculpe, ainda nao realizo esse tipo de tarefa", "Desculpe, apenas consigo te auxiliar em uma compra")
+NOPRODUCT_RESPONSES = ("Me informe um produto", "Nao sei se consigo ajudar, me informe um produto", "Qual produto deseja?", "Me mande uma foto do produto")
 
 def identificaProduto(imagemUrl):
 	headers = {
@@ -78,16 +79,20 @@ def identificaProduto(imagemUrl):
 	return json.dumps(parsed, sort_keys=False, indent=2)
 
 def linkBuscaML(produto):
-	return linkBuscaML + produto + '.json'
+	busca_endpoint = linkBuscaML + produto + '.json'
 
 def bot(texto, produto):
 
 	if produto == None:
-		retorno = 'Ola, sou o vendedor virtual, me informe o nome de um produto ou uma imagem dele'####
-	
+		retorno = random.choice(NOPRODUCT_RESPONSES)
+
 	else:
+		for word in texto.words:
+			if word.lower() in GREETING_KEYWORDS:
+				retorno = random.choice(GREETING_RESPONSES)
+
 		link = linkBuscaML(produto)
-		retorno = link
+		retorno = retorno + link
 
 
 	return retorno
@@ -120,10 +125,10 @@ def recebe_msg():
 			print 'aqui0000000000'
 			print request.json
 
-			if 'text' in request.json['entry'][0]['messaging'][0]['message']:
-				texto = metadata['entry'][0]['messaging'][0]['message']['text']
+			#if 'text' in request.json['entry'][0]['messaging'][0]['message']:
+			texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
-			for i in request.json['entry'][0]['messaging'][0]['message']:
+			for i in request.json['entry'][0]['messaging'][0]['message']['attachments'][0]:
 				print i
 
 			if 'image' in request.json['entry'][0]['messaging'][0]['message']['attachments'][0]:
