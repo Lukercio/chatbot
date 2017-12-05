@@ -118,8 +118,11 @@ def recebe_msg():
 			produto = None
 
 			if 'image' in request.json:
+				print 'aqui1'
 				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
+				print imagemUrl
 				#produto = identificaProduto(imagemUrl)
+			print 'aqui2'
 			return identificaProduto(imagemUrl)
 
 			mensagem = bot(texto, produto)
