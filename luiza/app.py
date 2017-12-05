@@ -125,19 +125,18 @@ def recebe_msg():
 			print 'aqui0000000000'
 			print request.json
 
-			#if 'text' in request.json['entry'][0]['messaging'][0]['message']:
-			texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
-			for i in request.json['entry'][0]['messaging'][0]['message']['attachments'][0]:
-				print i
 
-			if 'image' in request.json['entry'][0]['messaging'][0]['message']['attachments'][0]:
-				print 'aqui1'
-				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
-				print imagemUrl
-				#produto = identificaProduto(imagemUrl)
-			else:
-				print 'aqui3'
+			if metadata["object"] == "page":
+				for entry in metadata["entry"]:
+					for messaging_event in entry["messaging"]:
+						if messaging_event.get("message"):  # someone sent us a message
+							texto = messaging_event["message"]["text"]  # the message's text
+							imagemUrl = messaging_event["message"]["attachments"][0]["payload"]["url"]  # the message's text
+
+							print texto
+							print imagemUrl
+							
 			
 			produto = identificaProduto(imagemUrl)
 			print produto
