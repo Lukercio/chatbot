@@ -145,7 +145,7 @@ def recebe_msg():
 
 		except:
 			retorno = 'Erro'
-			statusCode = 500
+			statusCode = 400
 
 		return retorno, statusCode
 		#json.dumps(r, default=json_util.default), statusCode
