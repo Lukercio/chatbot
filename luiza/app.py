@@ -116,10 +116,10 @@ def recebe_msg():
 			metadata = json.loads(request.data.decode())
 			print metadata
 
-			if not ('text' not in metadata):
+			if 'text' in metadata:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
-			if not ('image' not in metadata):
+			if 'image' in metadata:
 				print 'aqui1'
 				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
 				print imagemUrl
