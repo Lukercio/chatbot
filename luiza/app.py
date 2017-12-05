@@ -117,6 +117,8 @@ def recebe_msg():
 			print 'aqui0'
 			metadata = json.loads(request.data.decode())
 			print metadata
+			print 'aqui0000000000'
+			print request.json
 
 			if 'text' in request.json:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
