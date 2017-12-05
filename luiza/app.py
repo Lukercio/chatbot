@@ -116,7 +116,7 @@ def recebe_msg():
 			metadata = json.loads(request.data.decode())
 			print metadata
 
-			if metadata['entry'][0]['messaging'][0]['message']['text'] not None:
+			if metadata['entry'][0]['messaging'][0]['message']['text'] != None:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
 			if 'image' in metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['type']:
