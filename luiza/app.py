@@ -132,10 +132,10 @@ def recebe_msg():
 							print "Mensagem recebida"
 						
 			
-			produto = identificaProduto(imagemUrl)
+			produto = identificaProduto('https://scontent-iad3-1.xx.fbcdn.net/v/t35.0-12/24726147_1641730655848963_260168319_o.jpg?_nc_ad=z-m&_nc_cid=0&oh=c85115f4a6bf04b5010027c07c3900a3&oe=5A26ABD8')
 			print produto
 
-			mensagem = bot(texto, produto)
+			mensagem = bot(texto, "")
 
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
