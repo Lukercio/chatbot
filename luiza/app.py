@@ -114,7 +114,7 @@ def recebe_msg():
 			r = db.log.insert(request.json)
 			print 'aqui0'
 			metadata = json.loads(request.data.decode())
-			print 'aqui0.1'
+			print metadata
 
 			if 'text' in metadata:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
