@@ -120,13 +120,13 @@ def recebe_msg():
 			print 'aqui0000000000'
 			print request.json
 
-			if 'text' in request.json:
+			if 'text' in request.json['entry'][0]['messaging'][0]['message']:
 				texto = metadata['entry'][0]['messaging'][0]['message']['text']
 
 			for i in request.json['entry'][0]['messaging'][0]['message']:
 				print i
 
-			if u'image' in request.json:
+			if 'image' in request.json['entry'][0]['messaging'][0]['message']['attachments'][0]:
 				print 'aqui1'
 				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
 				print imagemUrl
