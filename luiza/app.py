@@ -112,7 +112,7 @@ def recebe_msg():
 
 		try:
 			r = db.log.insert(request.json)
-
+			print 'áqui0'
 			metadata = json.loads(request.data.decode())
 			texto = metadata['entry'][0]['messaging'][0]['message']['text']
 			produto = None
