@@ -120,23 +120,23 @@ def recebe_msg():
 		try:
 			r = db.log.insert(request.json)
 			metadata = json.loads(request.data.decode())
-			print metadata
-			print request.json
+			# print metadata
+			# print request.json
 
 
 
-			if metadata["object"] == "page":
-				for entry in metadata["entry"]:
-					for messaging_event in entry["messaging"]:
-						if messaging_event.get("message"):  
-							print "Mensagem recebida"
+			# if metadata["object"] == "page":
+			# 	for entry in metadata["entry"]:
+			# 		for messaging_event in entry["messaging"]:
+			# 			if messaging_event.get("message"):  
+			# 				print "Mensagem recebida"
 						
 			
-			produto = identificaProduto('https://scontent-iad3-1.xx.fbcdn.net/v/t35.0-12/24726147_1641730655848963_260168319_o.jpg?_nc_ad=z-m&_nc_cid=0&oh=c85115f4a6bf04b5010027c07c3900a3&oe=5A26ABD8')
-			print produto
+			# produto = identificaProduto('https://scontent-iad3-1.xx.fbcdn.net/v/t35.0-12/24726147_1641730655848963_260168319_o.jpg?_nc_ad=z-m&_nc_cid=0&oh=c85115f4a6bf04b5010027c07c3900a3&oe=5A26ABD8')
+			# print produto
 
-			#mensagem = bot(texto, "")
-			mensagem = "Me envie um produto desejado"
+			# #mensagem = bot(texto, "")
+			# mensagem = "Me envie um produto desejado"
 
 			print "pos msg"
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
