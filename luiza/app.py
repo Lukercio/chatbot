@@ -122,6 +122,8 @@ def recebe_msg():
 				imagemUrl = metadata['entry'][0]['messaging'][0]['message']['attachments'][0]['payload']['url']
 				print imagemUrl
 				#produto = identificaProduto(imagemUrl)
+			else:
+				print 'aqui3'
 			print 'aqui2'
 			return identificaProduto(imagemUrl)
 
