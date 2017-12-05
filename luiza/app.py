@@ -114,9 +114,10 @@ def recebe_msg():
 			r = db.log.insert(request.json)
 			print 'aqui0'
 			metadata = json.loads(request.data.decode())
+			print 'aqui0.1'
+
 			texto = metadata['entry'][0]['messaging'][0]['message']['text']
 			produto = None
-			print 'aqui0.1'
 
 			if 'image' in request.json:
 				print 'aqui1'
