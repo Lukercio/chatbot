@@ -72,7 +72,7 @@ def identificaProduto(imagemUrl):
 		conn.close()
 
 	except: 
-		print traceback.print_exc()
+		return 'erro'
 
 	return json.dumps(parsed, sort_keys=False, indent=2)
 
