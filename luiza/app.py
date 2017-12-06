@@ -139,10 +139,10 @@ def recebe_msg():
 						
 			print '0008'
 			
-			produto = identificaProduto(imagemUrl)
-			print produto
-
-			mensagem = bot(texto, produto)
+			#produto = identificaProduto(imagemUrl)
+			#print produto
+			mensagem = "ola, tudo certo?"
+			#mensagem = bot(texto, produto)
 
 			print 'Lukercio'
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
