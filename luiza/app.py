@@ -149,7 +149,7 @@ def recebe_msg():
 			print 'lukercio2'
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
 			print 'lukercio3'
-			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
+			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=resposta)
 			print 'lukercio4'
 
 		except:
