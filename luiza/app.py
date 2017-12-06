@@ -155,8 +155,8 @@ def recebe_msg():
 				'Content-Type': 'application/json',
 			}
 
-			conn = httplib.HTTPSConnection('https://graph.facebook.com' + tokenResposta)
-			conn.request("POST", "/v2.6/me/messages/?access_token=%s" % tokenResposta, resposta, headers)
+			conn = httplib.HTTPSConnection('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta)
+			conn.request("POST", "%s" % tokenResposta, resposta, headers)
 			response = conn.getresponse()
 			data = response.read()
 
