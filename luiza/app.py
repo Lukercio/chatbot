@@ -150,7 +150,22 @@ def recebe_msg():
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
 			print resposta
 			print 'lukercio3'
-			ret = request.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
+			#ret = request.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
+			headers = {
+				'Content-Type': 'application/json',
+			}
+
+			conn = httplib.HTTPSConnection('https://graph.facebook.com' + tokenResposta)
+			conn.request("POST", "/v2.6/me/messages/?access_token=%s" % tokenResposta, resposta, headers)
+			response = conn.getresponse()
+			data = response.read()
+
+			parsed = json.loads(data)
+			print ("Response:")
+			print (json.dumps(parsed, sort_keys=False, indent=2))
+			conn.close()
+
+
 			print 'lukercio4'
 
 		except Exception as e:
