@@ -2,8 +2,10 @@ import os
 import traceback
 import json
 import io
-import httplib, urllib, base64
-from nltk.chat.util import Chat, reflections
+import requests
+import http.client, urllib.request, urllib.parse, urllib.error, base64, json
+#import httplib, urllib, base64
+#from nltk.chat.util import Chat, reflections
 from flask import Flask, request
 from flask_pymongo import PyMongo
 from flask_pymongo import MongoClient
@@ -118,60 +120,60 @@ def recebe_msg():
 		#return identificaProduto('https://scontent-iad3-1.xx.fbcdn.net/v/t35.0-12/24726147_1641730655848963_260168319_o.jpg?_nc_ad=z-m&_nc_cid=0&oh=c85115f4a6bf04b5010027c07c3900a3&oe=5A26ABD8')
 
 		try:
-			print '00000'
+			print ('00000')
 			r = db.log.insert(request.json)
-			print '0001'
+			print ('0001')
 			metadata = json.loads(request.data.decode())
-			print '00002'
-			print metadata
-			print request.json
+			print ('00002')
+			print (metadata)
+			print (request.json)
 
 
-			print '00003'
+			print ('00003')
 			if metadata["object"] == "page":
-				print '00004'
+				print ('00004')
 				for entry in metadata["entry"]:
-					print '0005'
+					print ('0005')
 					for messaging_event in entry["messaging"]:
-						print '0006'
+						print ('0006')
 						if messaging_event.get("message"):  
-							print '0007'
+							print ('0007')
 						
-			print '0008'
+			print ('0008')
 			
 			#produto = identificaProduto(imagemUrl)
 			#print produto
 			mensagem = "ola, tudo certo?"
 			#mensagem = bot(texto, produto)
 
-			print 'Lukercio'
+			print ('Lukercio')
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
-			print 'lukercio2'
+			print ('lukercio2')
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
-			print resposta
-			print 'lukercio3'
-			#ret = request.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
-			headers = {
-				'Content-Type': 'application/json',
-			}
+			print (resposta)
+			print ('lukercio3')
+			ret = request.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
+			# headers = {
+			# 	'Content-Type': 'application/json',
+			# }
 
-			conn = httplib.HTTPSConnection('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta)
-			conn.request("POST", "%s" % tokenResposta, resposta, headers)
-			response = conn.getresponse()
-			data = response.read()
+			# conn = httplib.HTTPSConnection('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta)
+			# conn.request("POST", "%s" % tokenResposta, resposta, headers)
+			# response = conn.getresponse()
+			# data = response.read()
 
-			parsed = json.loads(data)
-			print ("Response:")
-			print (json.dumps(parsed, sort_keys=False, indent=2))
-			conn.close()
+			# parsed = json.loads(data)
+			# print ("Response:")
+			# print (json.dumps(parsed, sort_keys=False, indent=2))
+			# conn.close()
 
 
-			print 'lukercio4'
+			print ('lukercio4')
 
 		except Exception as e:
 			retorno = 'Erro'
 			statusCode = 500
-			print e
+			print (e)
 
 		return retorno, statusCode
 		#json.dumps(r, default=json_util.default), statusCode
