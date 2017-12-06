@@ -148,13 +148,15 @@ def recebe_msg():
 			remetente = metadata['entry'][0]['messaging'][0]['sender']['id']
 			print 'lukercio2'
 			resposta = {'recipient': {'id': remetente}, 'message': {'text': mensagem}}
+			print resposta
 			print 'lukercio3'
-			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=resposta)
+			ret = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + tokenResposta, json=resposta)
 			print 'lukercio4'
 
-		except:
+		except Exception as e:
 			retorno = 'Erro'
 			statusCode = 500
+			print e
 
 		return retorno, statusCode
 		#json.dumps(r, default=json_util.default), statusCode
